@@ -1,0 +1,196 @@
+{
+    "client": "Thunder Client",
+    "collectionName": "Almacenadora",
+    "dateExported": "2023-04-20T22:28:03.688Z",
+    "version": "1.1",
+    "folders": [
+        {
+            "_id": "1e6f584f-f8a8-4766-bcd7-2d83ef583d61",
+            "name": "Account",
+            "containerId": "",
+            "created": "2023-04-18T21:38:06.888Z",
+            "sortNum": 10000
+        }
+    ],
+    "requests": [
+        {
+            "_id": "00cce7ce-0c46-4605-9563-9d9b2e98ea9c",
+            "colId": "69d934d3-ac74-4f43-9161-c3386587a31c",
+            "containerId": "1e6f584f-f8a8-4766-bcd7-2d83ef583d61",
+            "name": "Test",
+            "url": "/account/",
+            "method": "GET",
+            "sortNum": 20000,
+            "created": "2023-04-18T22:14:27.696Z",
+            "modified": "2023-04-20T22:27:34.516Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "57402150-d89e-4830-8ad8-5f8ae5977704",
+            "colId": "69d934d3-ac74-4f43-9161-c3386587a31c",
+            "containerId": "1e6f584f-f8a8-4766-bcd7-2d83ef583d61",
+            "name": "Get Accounts",
+            "url": "/account/get",
+            "method": "GET",
+            "sortNum": 25000,
+            "created": "2023-04-19T03:13:18.733Z",
+            "modified": "2023-04-20T22:27:02.872Z",
+            "headers": [
+                {
+                    "name": "Authorization",
+                    "value": "\"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NDNmNTZmNzA0OTMxMmYwZjMyZjJlMjMiLCJuYW1lIjoiSm9zdWUiLCJzdXJuYW1lIjoiTm9qIiwidXNlcm5hbWUiOiJqbm9qIiwiZW1haWwiOiJqbm9qQGtpbmFsLmVkdS5ndCIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTY4MjAyOTIxMCwiZXhwIjoxNjgyMDM2NDEwfQ.LhC4eytIef5xciaDvqSghvW5zPUMrHbWxU5PRkzoln0\""
+                }
+            ],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "71758419-d004-46ba-9005-fd55cbd6f295",
+            "colId": "69d934d3-ac74-4f43-9161-c3386587a31c",
+            "containerId": "1e6f584f-f8a8-4766-bcd7-2d83ef583d61",
+            "name": "Register ",
+            "url": "/account/register",
+            "method": "POST",
+            "sortNum": 30000,
+            "created": "2023-04-18T23:46:50.078Z",
+            "modified": "2023-04-20T22:27:22.406Z",
+            "headers": [
+                {
+                    "name": "Authorization",
+                    "value": "\"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NDNmNTZmNzA0OTMxMmYwZjMyZjJlMjMiLCJuYW1lIjoiSm9zdWUiLCJzdXJuYW1lIjoiTm9qIiwidXNlcm5hbWUiOiJqbm9qIiwiZW1haWwiOiJqbm9qQGtpbmFsLmVkdS5ndCIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTY4MjAyOTIxMCwiZXhwIjoxNjgyMDM2NDEwfQ.LhC4eytIef5xciaDvqSghvW5zPUMrHbWxU5PRkzoln0\""
+                }
+            ],
+            "params": [],
+            "body": {
+                "type": "formencoded",
+                "raw": "",
+                "form": [
+                    {
+                        "name": "name",
+                        "value": "Josue"
+                    },
+                    {
+                        "name": "surname",
+                        "value": "hernandez"
+                    },
+                    {
+                        "name": "username",
+                        "value": "jhernandez3"
+                    },
+                    {
+                        "name": "password",
+                        "value": "123"
+                    },
+                    {
+                        "name": "email",
+                        "value": "jhernandez-2021111@kinal.edu.gt"
+                    },
+                    {
+                        "name": "phone",
+                        "value": "36534283"
+                    },
+                    {
+                        "name": "role",
+                        "value": "admin"
+                    }
+                ]
+            },
+            "tests": []
+        },
+        {
+            "_id": "da3ce237-c3c7-4fa4-8be5-c87b53cf29d3",
+            "colId": "69d934d3-ac74-4f43-9161-c3386587a31c",
+            "containerId": "1e6f584f-f8a8-4766-bcd7-2d83ef583d61",
+            "name": "login",
+            "url": "/account/login",
+            "method": "POST",
+            "sortNum": 40000,
+            "created": "2023-04-18T23:56:52.886Z",
+            "modified": "2023-04-20T22:27:45.226Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "formencoded",
+                "raw": "",
+                "form": [
+                    {
+                        "name": "username",
+                        "value": "jnoj"
+                    },
+                    {
+                        "name": "password",
+                        "value": "123"
+                    }
+                ]
+            },
+            "tests": []
+        },
+        {
+            "_id": "62fd5dac-c945-4ba1-80ba-86c79ba1ad85",
+            "colId": "69d934d3-ac74-4f43-9161-c3386587a31c",
+            "containerId": "1e6f584f-f8a8-4766-bcd7-2d83ef583d61",
+            "name": "Delete Account",
+            "url": "/account/delete/6441bb30c0cb850b51708c06",
+            "method": "DELETE",
+            "sortNum": 50000,
+            "created": "2023-04-19T01:23:26.302Z",
+            "modified": "2023-04-20T22:27:16.444Z",
+            "headers": [
+                {
+                    "name": "Authorization",
+                    "value": "\"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NDNmNTZmNzA0OTMxMmYwZjMyZjJlMjMiLCJuYW1lIjoiSm9zdWUiLCJzdXJuYW1lIjoiTm9qIiwidXNlcm5hbWUiOiJqbm9qIiwiZW1haWwiOiJqbm9qQGtpbmFsLmVkdS5ndCIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTY4MjAyOTIxMCwiZXhwIjoxNjgyMDM2NDEwfQ.LhC4eytIef5xciaDvqSghvW5zPUMrHbWxU5PRkzoln0\""
+                }
+            ],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "37e6c56a-ae12-40da-a4b1-4b3e255b4ea2",
+            "colId": "69d934d3-ac74-4f43-9161-c3386587a31c",
+            "containerId": "1e6f584f-f8a8-4766-bcd7-2d83ef583d61",
+            "name": "Update Account",
+            "url": "/account/update/6441bb30c0cb850b51708c06",
+            "method": "PUT",
+            "sortNum": 60000,
+            "created": "2023-04-19T02:37:28.432Z",
+            "modified": "2023-04-20T22:27:54.527Z",
+            "headers": [
+                {
+                    "name": "Authorization",
+                    "value": "\"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NDNmNTZmNzA0OTMxMmYwZjMyZjJlMjMiLCJuYW1lIjoiSm9zdWUiLCJzdXJuYW1lIjoiTm9qIiwidXNlcm5hbWUiOiJqbm9qIiwiZW1haWwiOiJqbm9qQGtpbmFsLmVkdS5ndCIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTY4MjAyOTIxMCwiZXhwIjoxNjgyMDM2NDEwfQ.LhC4eytIef5xciaDvqSghvW5zPUMrHbWxU5PRkzoln0\""
+                }
+            ],
+            "params": [],
+            "body": {
+                "type": "formencoded",
+                "raw": "",
+                "form": [
+                    {
+                        "name": "name",
+                        "value": "josues"
+                    },
+                    {
+                        "name": "surname",
+                        "value": "a1"
+                    },
+                    {
+                        "name": "email",
+                        "value": "aa"
+                    },
+                    {
+                        "name": "phone",
+                        "value": "12341234"
+                    }
+                ]
+            },
+            "tests": []
+        }
+    ],
+    "settings": {
+        "options": {
+            "baseUrl": "localhost:2651"
+        }
+    }
+}
