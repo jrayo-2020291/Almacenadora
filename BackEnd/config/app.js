@@ -7,7 +7,7 @@ const cors = require('cors');
 const app = express();
 const port = process.env.PORT || 3200;
 
-const accountRoutes = require('../src/account/account.router');
+const accountRoutes = require('../src/account/account.routes');
 const storageRoutes = require('../src/storage/storage.routes')
 
 app.use(express.urlencoded({extended:false}));
