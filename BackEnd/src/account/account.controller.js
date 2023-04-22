@@ -8,6 +8,7 @@ exports.test = (req, res)=>{
     res.send({message: 'Test function is running'});
 }
 
+//agregar admin inicial
 exports.addAdminInitial = async(req, res)=>{
     try{
         let passwordEncrypt = await encrypt("123");
@@ -29,7 +30,7 @@ exports.addAdminInitial = async(req, res)=>{
         return console.error(err);
     }
 }
-
+//registrar workers
 exports.register = async(req, res)=>{
     try{
         let data = req.body;
@@ -45,7 +46,7 @@ exports.register = async(req, res)=>{
         return res.status(500).send({message: 'Error creating account'});
     }
 };
-
+//Logueo
 exports.login = async(req, res)=>{
     try{
         let data = req.body;
@@ -66,7 +67,7 @@ exports.login = async(req, res)=>{
         return res.status(500).send({message: 'Error not logged'});
     }
 }
-
+//Listar trabajadores
 exports.get = async(req,res)=>{
     try {
         let accounts=await Account.find();
@@ -76,7 +77,39 @@ exports.get = async(req,res)=>{
         return res.status(500).send({message:'Error get Workers'})
     }
 }
-
+//Filtro por nombre autocompletable
+exports.getForName = async(req,res)=>{
+    try {
+        let data = req.body;
+        let params = {
+            username: data.username 
+        }
+        if(data.username==='') return res.send({message:'Does not exist account'})
+        let accounts = await Account.find({
+            username:{
+                $regex:params.username,
+                $options:'i'
+            }
+        })
+        return res.send({accounts})
+    } catch (err) {
+        console.error(err)
+        return res.status(500).send({message:'Error get Workers'})
+    }
+}
+//Filtro por Id unico
+exports.getForId = async (req,res)=>{
+    try {
+        let accountId = req.params.id;
+        let existAccount = await Account.findOne({_id:accountId});
+        if(!existAccount) return res.send({message:'Account not found'})
+        return res.send({existAccount})
+    } catch(err) {
+        console.error(err)
+        return res.status(500).send({message:'Error get Workers'})
+    }
+}
+//actualizar trabajador
 exports.update = async(req, res)=>{
     try{
         let accountId = req.params.id;
@@ -85,13 +118,13 @@ exports.update = async(req, res)=>{
         if(!update) return res.status(400).send({message: 'They have sent non-updatable data'});
         let accountUpdate = await Account.findOneAndUpdate({_id: accountId},data,{new: true});
         if(!accountUpdate) return res.status(404).send({message: 'User not found and not updated'});
-        return res.send({message: 'Account updated', accountUpdate})
+        return res.send({message: 'Account updated sucessfully', accountUpdate})
     }catch(err){
         console.error(err);
         return res.status(500).send({message: 'Error not updated'});
     }
 }
-
+//borrar trabajador
 exports.delete = async(req, res)=>{
     try {
         let accountId = req.params.id;

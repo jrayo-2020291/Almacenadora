@@ -8,6 +8,7 @@ const app = express();
 const port = process.env.PORT || 3200;
 
 const accountRoutes = require('../src/account/account.router');
+const storageRoutes = require('../src/storage/storage.routes')
 
 app.use(express.urlencoded({extended:false}));
 app.use(express.json());
@@ -17,6 +18,7 @@ app.use(morgan('dev'));
 
 //Rutas de cada coleccion
 app.use('/account', accountRoutes);
+app.use('/storage',storageRoutes)
 
 exports.initServer = ()=>{
     app.listen(port);
