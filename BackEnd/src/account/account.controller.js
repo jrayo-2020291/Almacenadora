@@ -121,13 +121,13 @@ exports.update = async(req, res)=>{
         if(!update) return res.status(400).send({message: 'They have sent non-updatable data'});
         //actulizar username con validaciones
         let account= await Account.findOne({_id:accountId});
+        if(!account) return res.send({message:'Account not found and not delete'})
         if(data.username !== account.username){
             let existAccount= await Account.findOne({username:data.username});
-            if(existAccount) return res.send({message:'Username is in use'})
+            if(existAccount) return res.send({message:'Username is in use and not updated'})
         }
         //
         let accountUpdate = await Account.findOneAndUpdate({_id: accountId},data,{new: true});
-        if(!accountUpdate) return res.status(404).send({message: 'User not found and not updated'});
         return res.send({message: 'Account updated sucessfully', accountUpdate});
     }catch(err){
         console.error(err);

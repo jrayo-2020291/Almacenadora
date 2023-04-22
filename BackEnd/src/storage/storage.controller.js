@@ -11,6 +11,7 @@ exports.add = async(req,res)=>{
         let data = req.body;
         let existStorage = await Storage.findOne({name:data.name});
         if(existStorage) return res.send({message:'This NAME is already in use'});
+        if(data.name===''||data.description===''||data.location===''||data.size===''||data.availability===''||data.monthlyPrice==='') return res.send({message:'Cannot send empty data'})
         let storage = new Storage(data);
         await storage.save();
         return res.send({message:'Storage created sucessfully'})
@@ -24,6 +25,7 @@ exports.add = async(req,res)=>{
 exports.get = async(req,res)=>{
     try {
         let storages = await Storage.find();
+        if(!storages) return res.send({message:'Storage not found'})
         return res.send({storages})
     } catch (err) {
         console.error(err);
@@ -52,13 +54,44 @@ exports.getForName = async(req,res)=>{
     }
 }
 
+//get por ID
+exports.getForId = async(req,res)=>{
+    try {
+        let storageId= req.params.id;
+        let existStorage = await Storage.findOne({_id:storageId});
+        if(!existStorage) return res.send({message:'Storage not found'});
+        return res.send(existStorage);
+    } catch (err) {
+        console.error(err);
+        return res.status(500).send({message:'Error getted Storage'})
+    }
+}
+
+//get por disponibilidad
+exports.getForAvailability = async(req,res)=>{
+    try {
+        let data = req.body;
+        let existStorage = await Storage.find({availability:data.availability});
+        if(!existStorage) return res.send({message:'Storage not found'});
+        return res.send(existStorage)
+    } catch (err) {
+        console.log(err);
+        return res.status(500).send({message:'Error getted Storage'})
+    }
+}
+
 //actualizar bodega
 exports.update = async(req,res)=>{
     try {
         let storageId = req.params.id;
         let data = req.body;
+        let storage= await Storage.findOne({_id:storageId});
+        if(!storage) return res.send({message:'storage not found and not delete'})
+        if(data.name !== storage.name){
+            let existStorage= await Storage.findOne({name:data.name});
+            if(existStorage) return res.send({message:'Name is in use and not updated'})
+        }
         let updateStorage = await Storage.findOneAndUpdate({_id:storageId},data,{new:true});
-        if(!updateStorage) return res.send({message:'Storage not found and not delete'});
         return res.send({message:'Storage updated sucessfully', updateStorage})
     } catch (err) {
         console.error(err)

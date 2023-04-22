@@ -24,7 +24,8 @@ const storageSchema = mongoose.Schema({
     },
     availability: {
         type: String,
-        required: true
+        required: true,
+        lowercase: true
     },
     monthlyPrice: {
         type: Number,
