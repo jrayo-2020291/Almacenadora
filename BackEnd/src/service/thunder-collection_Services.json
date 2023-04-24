@@ -1,0 +1,108 @@
+{
+    "client": "Thunder Client",
+    "collectionName": "Services",
+    "dateExported": "2023-04-24T23:05:07.954Z",
+    "version": "1.1",
+    "folders": [],
+    "requests": [
+        {
+            "_id": "35a64079-f6d3-4491-a8e9-22fde9cd9f8b",
+            "colId": "e1449c01-f24e-4738-acd9-c216c1d275c5",
+            "containerId": "",
+            "name": "Add",
+            "url": "/service/add",
+            "method": "POST",
+            "sortNum": 10000,
+            "created": "2023-04-24T22:45:25.508Z",
+            "modified": "2023-04-24T22:57:53.491Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "formencoded",
+                "raw": "",
+                "form": [
+                    {
+                        "name": "name",
+                        "value": "aeea"
+                    },
+                    {
+                        "name": "description",
+                        "value": "a"
+                    },
+                    {
+                        "name": "price",
+                        "value": "12"
+                    }
+                ]
+            },
+            "tests": []
+        },
+        {
+            "_id": "0dc6f44e-063c-4482-972a-20132c60fbce",
+            "colId": "e1449c01-f24e-4738-acd9-c216c1d275c5",
+            "containerId": "",
+            "name": "get",
+            "url": "/service/get",
+            "method": "GET",
+            "sortNum": 20000,
+            "created": "2023-04-24T22:56:07.103Z",
+            "modified": "2023-04-24T22:56:19.877Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "cb0e7409-6981-4a9f-9330-4b95e42c1663",
+            "colId": "e1449c01-f24e-4738-acd9-c216c1d275c5",
+            "containerId": "",
+            "name": "update",
+            "url": "/service/update/64470929a9887cf272f20de8?name=e&price=14&description=e",
+            "method": "PUT",
+            "sortNum": 30000,
+            "created": "2023-04-24T23:02:13.453Z",
+            "modified": "2023-04-24T23:04:37.907Z",
+            "headers": [],
+            "params": [
+                {
+                    "name": "name",
+                    "value": "e",
+                    "isPath": false
+                },
+                {
+                    "name": "price",
+                    "value": "14",
+                    "isPath": false
+                },
+                {
+                    "name": "description",
+                    "value": "e",
+                    "isPath": false
+                }
+            ],
+            "body": {
+                "type": "formencoded",
+                "raw": "",
+                "form": [
+                    {
+                        "name": "name",
+                        "value": "eeee"
+                    },
+                    {
+                        "name": "description",
+                        "value": "ss"
+                    },
+                    {
+                        "name": "price",
+                        "value": "19"
+                    }
+                ]
+            },
+            "tests": []
+        }
+    ],
+    "settings": {
+        "options": {
+            "baseUrl": "localhost:5000"
+        }
+    }
+}
