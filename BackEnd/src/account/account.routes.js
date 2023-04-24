@@ -7,7 +7,9 @@ const { ensureAuth, isAdmin } = require('../services/authenticated');
 
 //Rutas públicas
 api.get('/' , accountController.test);
-api.get('/get',[ensureAuth,isAdmin], accountController.get)
+api.get('/get',[ensureAuth,isAdmin], accountController.get);
+api.post('/getForId/:id',[ensureAuth,isAdmin],accountController.getForId)
+api.post('/getForName', [ensureAuth,isAdmin], accountController.getForName);
 api.post('/register',[ensureAuth,isAdmin], accountController.register);
 api.post('/login', accountController.login);
 api.put('/update/:id', [ensureAuth,isAdmin], accountController.update);

@@ -8,6 +8,7 @@ exports.test = (req, res)=>{
     res.send({message: 'Test function is running'});
 }
 
+//agregar admin inicial
 exports.addAdminInitial = async(req, res)=>{
     try{
         let passwordEncrypt = await encrypt("123");
@@ -29,7 +30,7 @@ exports.addAdminInitial = async(req, res)=>{
         return console.error(err);
     }
 }
-
+//registrar workers
 exports.register = async(req, res)=>{
     try{
         let data = req.body;
@@ -37,6 +38,7 @@ exports.register = async(req, res)=>{
         data.role = 'worker';
         let existAccount =await Account.findOne({username: data.username})
         if(existAccount) return res.send({message:'username is already taken'})
+        if(data.name===''||data.surname===''||data.username===''||data.password===''||data.email===''||data.phone==='') return res.send({message:'you cannot leave empty data'})
         let account = new Account(data);
         await account.save();
         return res.send({message: 'Account created sucessfully'});
@@ -45,7 +47,7 @@ exports.register = async(req, res)=>{
         return res.status(500).send({message: 'Error creating account'});
     }
 };
-
+//Logueo
 exports.login = async(req, res)=>{
     try{
         let data = req.body;
@@ -54,7 +56,8 @@ exports.login = async(req, res)=>{
             password: data.password
         }
         let msg = validateData(credentials);
-        if(msg) return res.status(400).send({message: msg})
+        if(data.password===''||data.username==='') return res.send({message:'you must fill out the credentials'})
+        if(msg) return res.status(400).send({message: msg});
         let user = await Account.findOne({username: data.username});
         if(user && await checkPassword(data.password, user.password)) {
             let token = await createToken(user)
@@ -66,32 +69,72 @@ exports.login = async(req, res)=>{
         return res.status(500).send({message: 'Error not logged'});
     }
 }
-
+//Listar trabajadores
 exports.get = async(req,res)=>{
     try {
         let accounts=await Account.find();
+        if(!accounts) return res.send({message:'Accounts not found'})
         return res.send({accounts})
     } catch (err) {
         console.error(err)
         return res.status(500).send({message:'Error get Workers'})
     }
 }
-
+//Filtro por nombre autocompletable
+exports.getForName = async(req,res)=>{
+    try {
+        let data = req.body;
+        let params = {
+            username: data.username 
+        }
+        if(data.username==='') return res.send({message:'Does not exist account'})
+        let accounts = await Account.find({
+            username:{
+                $regex:params.username,
+                $options:'i'
+            }
+        })
+        return res.send({accounts})
+    } catch (err) {
+        console.error(err)
+        return res.status(500).send({message:'Error get Workers'})
+    }
+}
+//Filtro por Id unico
+exports.getForId = async (req,res)=>{
+    try {
+        let accountId = req.params.id;
+        let existAccount = await Account.findOne({_id:accountId});
+        if(!existAccount) return res.send({message:'Account not found'})
+        return res.send({existAccount})
+    } catch(err) {
+        console.error(err)
+        return res.status(500).send({message:'Error get Workers'})
+    }
+}
+//actualizar trabajador
 exports.update = async(req, res)=>{
     try{
         let accountId = req.params.id;
         let data = req.body;
         let update = checkUpdate(data, true);
         if(!update) return res.status(400).send({message: 'They have sent non-updatable data'});
+        //actulizar username con validaciones
+        let account= await Account.findOne({_id:accountId});
+        if(!account) return res.send({message:'Account not found and not delete'})
+        if(data.username !== account.username){
+            let existAccount= await Account.findOne({username:data.username});
+            if(existAccount) return res.send({message:'Username is in use and not updated'})
+        }
+        //
         let accountUpdate = await Account.findOneAndUpdate({_id: accountId},data,{new: true});
-        if(!accountUpdate) return res.status(404).send({message: 'User not found and not updated'});
-        return res.send({message: 'Account updated', accountUpdate})
+        return res.send({message: 'Account updated sucessfully', accountUpdate});
     }catch(err){
         console.error(err);
         return res.status(500).send({message: 'Error not updated'});
     }
 }
-
+//borrar trabajador
 exports.delete = async(req, res)=>{
     try {
         let accountId = req.params.id;

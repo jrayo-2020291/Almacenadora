@@ -7,7 +7,9 @@ const cors = require('cors');
 const app = express();
 const port = process.env.PORT || 3200;
 
-const accountRoutes = require('../src/account/account.router');
+const accountRoutes = require('../src/account/account.routes');
+const storageRoutes = require('../src/storage/storage.routes');
+const userRoutes = require('../src/users/user.routes');
 
 app.use(express.urlencoded({extended:false}));
 app.use(express.json());
@@ -17,6 +19,8 @@ app.use(morgan('dev'));
 
 //Rutas de cada coleccion
 app.use('/account', accountRoutes);
+app.use('/storage',storageRoutes);
+app.use('/user', userRoutes);
 
 exports.initServer = ()=>{
     app.listen(port);
