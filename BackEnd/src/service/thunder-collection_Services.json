@@ -1,7 +1,7 @@
 {
     "client": "Thunder Client",
     "collectionName": "Services",
-    "dateExported": "2023-04-24T23:05:07.954Z",
+    "dateExported": "2023-04-26T23:21:57.143Z",
     "version": "1.1",
     "folders": [],
     "requests": [
@@ -94,6 +94,54 @@
                     {
                         "name": "price",
                         "value": "19"
+                    }
+                ]
+            },
+            "tests": []
+        },
+        {
+            "_id": "20dbf4c8-66fe-4fd7-b3c9-b203778bb553",
+            "colId": "e1449c01-f24e-4738-acd9-c216c1d275c5",
+            "containerId": "",
+            "name": "find",
+            "url": "/service/find",
+            "method": "POST",
+            "sortNum": 40000,
+            "created": "2023-04-26T23:03:02.581Z",
+            "modified": "2023-04-26T23:20:46.972Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "formencoded",
+                "raw": "",
+                "form": [
+                    {
+                        "name": "name",
+                        "value": "a"
+                    }
+                ]
+            },
+            "tests": []
+        },
+        {
+            "_id": "65b1b38d-69bf-4068-a6b7-a53988154cd4",
+            "colId": "e1449c01-f24e-4738-acd9-c216c1d275c5",
+            "containerId": "",
+            "name": "findId",
+            "url": "/service/findId",
+            "method": "POST",
+            "sortNum": 50000,
+            "created": "2023-04-26T23:21:01.104Z",
+            "modified": "2023-04-26T23:21:44.884Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "formencoded",
+                "raw": "",
+                "form": [
+                    {
+                        "name": "id",
+                        "value": "64470971d979fe84d7a172ee"
                     }
                 ]
             },

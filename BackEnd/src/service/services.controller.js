@@ -20,6 +20,38 @@ exports.addService = async (req, res) => {
   }
 };
 
+exports.find = async (req, res) => {
+  try {
+    let data = req.body;
+    let servicename = req.body.name;
+    let name= data.name;
+    if(name===''){
+    return res.status(200).send({message:'Empty field'})
+    }
+    let service = await Service.find({ name: servicename });
+    return res.send(service);
+  } catch (err) {
+    console.error(err);
+    return res.status(500).send({ message: "Invalid name" });
+  }
+};
+
+exports.findId = async (req, res) => {
+  try {
+    let data = req.body;
+    let serviceId = req.body.id;
+    let id= data.id;
+    if(id===''){
+    return res.status(200).send({message:'Empty field'})
+    }
+    let service = await Service.find({ _id: serviceId });
+    return res.send(service);
+  } catch (err) {
+    console.error(err);
+    return res.status(500).send({ message: "Invalid name" });
+  }
+};
+
 exports.getServices = async(req, res)=>{
   try{
       let services = await Service.find();
