@@ -1,5 +1,6 @@
 'use restrict'
 const Storage = require('./storage.model');
+const Lease = require('../lease/lease.model')
 
 exports.test =async(req,res)=>{
     return res.send({message:'Test function'});
@@ -103,6 +104,12 @@ exports.update = async(req,res)=>{
 exports.delete = async(req,res)=>{
     try {
         let storageId = req.params.id;
+        //buscar que no este asociada con USER
+        let existStorage = await Storage.findOne({_id:storageId})
+        console.log(existStorage.id)
+        let existUser = await Lease.findOne({storage:existStorage.id});
+        if(existUser) return res.send({message:'You cannot delete a warehouse that is in use'})
+        //
         let storageDelete = await Storage.findOneAndDelete({_id:storageId});
         if(!storageDelete) return res.send({message:'Storage not found and not delte'});
         return res.send({message:`Storage witch name ${storageDelete.name} delete sucessfully`})
