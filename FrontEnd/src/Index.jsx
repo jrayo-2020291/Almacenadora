@@ -16,6 +16,11 @@ import { UpdateStoragePage } from './pages/StoragePage/UpdateStoragePage'
 import { AddUserPage } from './pages/UserPage/AddUserPage'
 import { UpdateUserPage } from './pages/UserPage/UpdateUserPage'
 import { WorkerPage } from './pages/WorkerPage'
+import { A_ServicesTable } from './components/A_ServicesTable'
+import { AccountTable  } from './components/AccountTable'
+import { LeaseTable } from './components/LeaseTable'
+import { StorageTable } from './components/StorageTable'
+import { UserTable } from './components/UserTable'
 
 export const AuthContext = createContext();
 
@@ -48,7 +53,29 @@ export const Index = () => {
             },
             {
                 path: '/dashboard',
-                element: loggedAdmin ? <DashBoardPage></DashBoardPage> : <LoginPage></LoginPage>    
+                element: loggedAdmin ? <DashBoardPage></DashBoardPage> : <LoginPage></LoginPage>,
+                children: [
+                    {
+                        path: 'A_Services',
+                        element: <A_ServicesTable></A_ServicesTable>
+                    },
+                    {
+                        path: 'Account',
+                        element: <AccountTable></AccountTable>
+                    },
+                    {
+                        path: 'Lease',
+                        element: <LeaseTable></LeaseTable>
+                    },
+                    {
+                        path: 'Storage',
+                        element: <StorageTable></StorageTable>
+                    },
+                    {
+                        path: 'User',
+                        element: <UserTable></UserTable>
+                    }
+                ]    
             },
             {
                 path: '/worker',
