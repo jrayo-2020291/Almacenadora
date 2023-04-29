@@ -45,4 +45,8 @@ function events() {
   });
 }
 
+<<<<<<< HEAD
 /*events();*/
+=======
+// events();
+>>>>>>> 904bce84bb15b7b6ad4b8178666db2a74f4d7e82
