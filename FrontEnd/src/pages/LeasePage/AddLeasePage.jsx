@@ -6,6 +6,9 @@ import { useState, useEffect } from "react"
 
 export const AddLeasePage = () => {
   const [users, setUsers] = useState([{}])
+  const [services, setServices] = useState([{}])
+  const [storage, setStorage] = useState([{}])
+
 
     const title = 'ADD USER'
 
@@ -13,24 +16,50 @@ export const AddLeasePage = () => {
 
     const getUsers = async()=>{
       try{
-          const { data } = await axios('http://localhost:2651/user/get')
+          const { data } = await axios('http://localhost:2651/user/get' ,
+          {
+              headers: {
+                  'Authorization': token
+              }
+          })
           setUsers(data.users)
       }catch(err){
           console.error(err);
       }
   }
+  const getStorage = async()=>{
+    try{
+        const { data } = await axios('http://localhost:2651/storage/get' ,
+        {
+            headers: {
+                'Authorization': token
+            }
+        })
+        setStorage(data.storages)
+    }catch(err){
+        console.error(err);
+    }
+}
 
-    const addLeasePage = async()=>{
+  const getServices = async()=>{
+    try{
+        const { data } = await axios('http://localhost:2651/service/get' )
+        setServices(data.services)
+    }catch(err){
+        console.error(err);
+    }
+}
+    const addLease = async()=>{
         try{
-            let user = {
-                name: document.getElementById('name').value,
-                surname: document.getElementById('surname').value,
-                DPI: document.getElementById('dpi').value,
-                email: document.getElementById('gmail').value,
-                phone: document.getElementById('phone').value,
+            let lease = {
+              user: document.getElementById('inputUser').value,
+              storage: document.getElementById('inputStorage').value,
+              description: document.getElementById('description').value,
+              dueDate: document.getElementById('date').value,
+              rentalDate: document.getElementById('time').value,
 
             }
-            const { data } = await axios.post('http://localhost:2651/lease/add', user,
+            const { data } = await axios.post('http://localhost:2651/lease/add', lease,
             {
                 headers: {
                     'Authorization': token
@@ -42,6 +71,8 @@ export const AddLeasePage = () => {
         }
     }
     useEffect(()=> getUsers, [])
+    useEffect(()=> getServices, [])
+    useEffect(()=> getStorage, [])
 
   return (
     <>
@@ -55,50 +86,51 @@ export const AddLeasePage = () => {
         <div className="box">
             <h1>Arrendamiento</h1>
             <form>
-                <div>
-                    <i className="fa-solid fa-user-pen icon side"></i>
-                    <select className="position">
-                        <option value="0" disabled selected>Clientes</option>
-                        <option value="1">01</option>
-                        <option value="2">02</option>
-                        <option value="3">03</option>
-                    </select>
-                </div>
-                <br/>
-                <div>
-                    <i className="fa-solid fa-user-shield icon side"></i>
-                    <select className="size">
-                        <option value="0" disabled selected>Bodegas</option>
-                        <option value="1">01</option>
-                        <option value="2">02</option>
-                        <option value="3">03</option>
-                    </select>
-                </div>
-                <br/>
-                <div className="mb-3">
-                    <label htmlFor="inputCategory" className="form-label">User</label>
-                    <select className="form-control" id="inputCategory" required>
-                        {
-                           users.map(({_id, username}, i)=>{
+            <div>
+                    <i className="fa-solid fa-user-shield icon side">Cliente</i>
+                    <select className="form-control" id="inputUser" required>
+                     {
+                           users.map(({_id, name}, i)=>{
                             return (
-                                <option key={i} value={_id}>{username}</option>
+                                <option key={i} value={_id}>{name}</option>
                             )
                            }) 
                         }
                     </select>
                 </div>
                 <br/>
+
+                <div>
+                    <i className="fa-solid fa-user-shield icon side">Bodega</i>
+                    <select className="form-control" id="inputStorage" required>
+                    {
+                           storage.map(({_id, name}, i)=>{
+                            return (
+                                <option key={i} value={_id}>{name}</option>
+                            )
+                           }) 
+                        }
+                    </select>
+                </div>
+                <br/>
+                
+                <br/>
                 <div>
                     <i className="fa-solid fa-book icon side"></i>
-                    <input type="text" placeholder="Arrendamiento"/>
+                    <input type="date" placeholder="Arrendamiento" id='date'/>
                 </div>
                 <br/>
                 <div>
                     <i className="fa-solid fa-clock"></i>
-                    <input type="number" placeholder="Duracion"/>
+                    <input type="date" placeholder="Duracion" id='time'/>
                 </div>
                 <br/>
-                <input type="submit" value="Agregar"/>
+                <div>
+                    <i className="fa-solid fa-clock"></i>
+                    <input type="text" placeholder="Descripcion" id='description'/>
+                </div>
+                <br/>
+                <button onClick={()=>  addLease()} type="submit" className="btn btn-primary">Add</button>
             </form>
         </div>
     </div>
