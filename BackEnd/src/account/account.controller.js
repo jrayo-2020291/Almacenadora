@@ -56,7 +56,7 @@ exports.login = async(req, res)=>{
             password: data.password
         }
         let msg = validateData(credentials);
-        if(data.password===''||data.username==='') return res.send({message:'you must fill out the credentials'})
+        // if(data.password===''||data.username==='') return res.send({message:'you must fill out the credentials'})
         if(msg) return res.status(400).send({message: msg});
         let user = await Account.findOne({username: data.username});
         if(user && await checkPassword(data.password, user.password)) {

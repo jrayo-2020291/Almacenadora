@@ -4,9 +4,7 @@ import './assets/favicon.png'
 
 function App() {
   return (
-    <>
     <Outlet></Outlet>
-    </>
   )
 }
 

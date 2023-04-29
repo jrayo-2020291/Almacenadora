@@ -25,15 +25,16 @@ export const LoginPage = () => {
     try{
       // e.preventDefault()  
       const { data } = await axios.post('http://localhost:2651/account/login', form)
-
+      console.log(data)
       if(data.token){
         setLoggedIn(true)
         localStorage.setItem('token', data.token)
-        setDataUser({
-          name: data.userLogged.name,
-          username: data.userLogged.username,
-          role: data.userLogged.role
-        })
+        console.log(data.token)
+        // setDataUser({
+        //   name: data.name,
+        //   username: data.username,
+        //   role: data.role
+        // })
         return <Navigate to='/dashboard'></Navigate>
       }
     }catch(err){
@@ -42,6 +43,7 @@ export const LoginPage = () => {
       throw new Error('Error login failed')
     }
   }
+  console.log(form)
   return (
     <>
     <meta charSet="UTF-8"/>
@@ -56,12 +58,12 @@ export const LoginPage = () => {
             <form>
                 <div>
                     <i className="fa-solid fa-user"></i>
-                    <input onChange={handleChange} type="text" placeholder="Usuario"/>
+                    <input onChange={handleChange} name='username' type="text" placeholder="Usuario"/>
                 </div>
                 <br/>
                 <div>
                     <i className="fa-solid fa-lock"></i>
-                    <input onChange={handleChange} type="password" placeholder="Contraseña"/>
+                    <input onChange={handleChange} name='password' type="password" placeholder="Contraseña"/>
                 </div>
                 <br/>
                 <Link to='/dashboard'>

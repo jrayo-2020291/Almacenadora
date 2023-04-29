@@ -6,15 +6,11 @@ import { useState, useEffect } from "react"
 
 export const AddAccountPage = () => {
 
+
     const title = 'ADD Account'
 
     const token = localStorage.getItem(`token`)
 
-    let headers = {
-            "Content-type": "application/json; charset=UTF-8",
-            "Authorization":  token
-     };
-     console.log(headers)
     const addAccount = async()=>{
         try{
             let account = {
@@ -23,9 +19,13 @@ export const AddAccountPage = () => {
                 username: document.getElementById('username').value,
                 password: document.getElementById('password').value,
                 email: document.getElementById('email').value,
-                role: document.getElementById('role').value,
+                phone: document.getElementById('role').value,
             }
-            const { data } = await axios.post('http://localhost:2651/account/register', account, headers)
+            const { data } = await axios.post('http://localhost:2651/account/register', account, {
+                headers: {
+                    'Authorization': token
+                }
+            })
             alert(data.message)
         }catch(err){
             alert(err.response.data.message)
