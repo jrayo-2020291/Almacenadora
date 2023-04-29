@@ -13,7 +13,6 @@ export const HomePage = () => {
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <link rel="shortcut icon" href="../assets/favicon.png" type="image/x-icon"/>
     <script src="https://kit.fontawesome.com/32c2859f80.js" crossOrigin="anonymous"></script>
-    <title>Almacenadora Robbins</title>
     <main>
         <div className="big-wrapper light">
           <header>
