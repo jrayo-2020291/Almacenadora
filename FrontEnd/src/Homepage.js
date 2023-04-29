@@ -45,4 +45,4 @@ function events() {
   });
 }
 
-events();
+/*events();*/
