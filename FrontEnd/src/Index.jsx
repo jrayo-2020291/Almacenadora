@@ -1,6 +1,6 @@
 import React, {createContext, useState, useEffect} from 'react'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
-import App from './App'
+import App from './App.jsx'
 import { DashBoardPage } from './pages/DashBoardPage'
 import { HomePage } from './pages/HomePage'
 import { LoginPage } from './pages/LoginPage'
