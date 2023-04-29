@@ -8,17 +8,25 @@ export const AddUserPage = () => {
 
     const title = 'ADD USER'
 
+    const token = localStorage.getItem(`token`)
+
+
     const addUser = async()=>{
         try{
             let user = {
                 name: document.getElementById('name').value,
                 surname: document.getElementById('surname').value,
-                dpi: document.getElementById('dpi').value,
+                DPI: document.getElementById('dpi').value,
                 email: document.getElementById('gmail').value,
                 phone: document.getElementById('phone').value,
 
             }
-            const { data } = await axios.post('http://localhost:2651/user/add', user)
+            const { data } = await axios.post('http://localhost:2651/user/add', user,
+            {
+                headers: {
+                    'Authorization': token
+                }
+            })
             alert(data.message)
         }catch(err){
             alert(err.response.data.message)
