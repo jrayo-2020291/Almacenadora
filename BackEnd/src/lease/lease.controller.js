@@ -14,14 +14,22 @@ exports.add = async(req, res) => {
         let priceStorage = await Storage.findOne({_id: data.storage});
         if(!priceStorage ) return res.status(404).send({message: 'The id does not belong to a record in the database'})
         let price = priceStorage.monthlyPrice;
+        let dateNow = new Date();
+        let timeMonth = (1000*60*60*24*30) * data.month;
+        let sumTime = dateNow.getTime()+timeMonth;
+        let dateExpired = new Date(sumTime)
         let dataLease = {
             user: data.user,
             storage: data.storage,
             description: data.description,
-            rentalDate: data.rentalDate,
-            dueDate: data.dueDate,
-            total: price
+            rentalDate: dateNow,
+            monthRental: data.month,
+            dueDate: dateExpired,
+            total: price * data.month
         }
+        let storage = await Storage.findOne({_id: dataLease.storage})
+        if(storage.availability == 'nodisponible') return res.send({message: 'This storage already in lease'});
+        let stateStorage = await Storage.findOneAndUpdate({_id: dataLease.storage}, {availability: 'nodisponible'}, {new: true});
         let newLease = new Lease (dataLease);
         await newLease.save();
         return res.send({message: 'New Lease created', newLease});
@@ -44,8 +52,7 @@ exports.addService = async(req, res)=>{
                 }
             ]});
             let params = {
-                service: data.serviceId,
-                price: serviceExist.price
+                service: data.serviceId
             };
             let lease = await Lease.findOne({_id: leaseId});
             let newTotal = lease.total + serviceExist.price;
@@ -72,7 +79,7 @@ exports.substractService = async(req, res)=>{
                 }
             ]});
             let lease = await Lease.findOne({_id: leaseId});
-            let newTotal = lease.total + serviceExist.price;
+            let newTotal = lease.total - serviceExist.price;
             if(!serviceExistInLease) return res.send({message: 'You have not contracted this service'});
             let updatedLease = await Lease.findOneAndUpdate({_id: leaseId}, {$pull:{'services': {'service':data.serviceId}}, total: newTotal}, {new:true});
             return res.send({message: 'Contrated Service: ' + updatedLease});           
@@ -123,10 +130,19 @@ exports.updateLease = async (req, res)=>{
     try{
         let leaseId = req.params.id;
         let data = req.body;
-        if(data.total || data.services)return res.send({message: 'Parameter not allowed'});
         let leaseExist = await Lease.findOne({_id: leaseId});
         if(!leaseExist) return res.status(404).send({message: 'Lease not found'});
-        let updatedLease = await Lease.findOneAndUpdate({_id: leaseId}, data, {new: true});
+        if(data.storage == leaseExist.storage) return res.send({message: 'To use the update function you must enter a new Storage'});
+        let oldStorage = await Storage.findOne({_id: leaseExist.storage});
+        let newStorage = await Storage.findOne({_id: data.storage});
+        let newTotal = leaseExist.total - (oldStorage.monthlyPrice * leaseExist.monthRental) + (newStorage.monthlyPrice*leaseExist.monthRental)
+        let params = {
+            storage: newStorage._id,
+            total: newTotal
+        }
+        let oldStorageState = await Storage.findOneAndUpdate({_id: leaseExist.storage}, {availability: 'disponible'}, {new: true});
+        let newStorageState = await Storage.findOneAndUpdate({_id: data.storage}, {availability: 'nodisponible'}, {new: true});
+        let updatedLease = await Lease.findOneAndUpdate({_id: leaseId}, params, {new: true});
         if(!updatedLease) return res.status(404).send({message: 'Lease not found and not updated'});
         return res.send({message: 'Lease updated successfully', updatedLease});
     }catch(err){

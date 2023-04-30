@@ -17,8 +17,12 @@ const leaseSchema = mongoose.Schema({
         type: String,
         required: true
     },
-    rentalDate:{
+    rentalDate: {
         type: Date,
+        required: true
+    },
+    monthRental:{
+        type: Number,
         required: true
     }
     ,
@@ -27,8 +31,7 @@ const leaseSchema = mongoose.Schema({
         required: true
     },
     services: [{
-        service: {type: mongoose.Schema.Types.ObjectId, ref: 'Services', required: true},
-        price: {type: Number, required:true}
+        service: {type: mongoose.Schema.Types.ObjectId, ref: 'Services', required: true}
     }],
     total: {
         type: Number,
