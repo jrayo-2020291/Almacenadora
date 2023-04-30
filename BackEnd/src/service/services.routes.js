@@ -8,7 +8,7 @@ api.post('/add', serviceController.addService);
 api.get('/get', serviceController.getServices);
 api.put('/update/:id', serviceController.updateService);
 api.post('/find', serviceController.find);
-api.post('/findId', serviceController.findId);
+api.get('/find/:id', serviceController.getForId);
 
 
 module.exports = api;

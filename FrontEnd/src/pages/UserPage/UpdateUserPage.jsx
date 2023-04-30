@@ -1,55 +1,84 @@
 import React, { useState, useEffect } from 'react'
 import { Navigate, useParams } from 'react-router-dom'
 import axios from 'axios'
-import imgLoading from '../../assets/Loading.gif'
 
 export const UpdateUserPage = () => {
-  const [form, setForm] = useState({
-    name: '',
-    surname: '',
-    DPI: '',
-    email: '',
-    phone: ''
-  })
-  const [loading, setLoading] = useState(true)
   const [user, setUser] = useState({})
-  const { id } = useParams()
+    const { id } = useParams();
+    const token = localStorage.getItem(`token`)
 
-  const getUser = async()=>{
-    try{
-      const { data } = await axios(`http://localhost:2651/user/get/${id}`)
-      setUser(data.user)
-      setLoading(false)
-    }catch(err){
-      console.error(err)
+
+    const getUser = async()=>{
+        try{
+            const { data } = await axios(`http://localhost:2651/user/get/${id}`, {
+              headers: {
+                  'Authorization': token
+              }
+          })
+            setUser(data.user)
+        }catch(err){
+            console.error(err)
+        }
     }
-  }
-  const handleChange = ()=>{
-    setForm({
-      ...form, 
-      [e.target.name]: e.target.value
-    })
-  }
+    
 
-  const update = async(e)=>{
-    try{
-      e.preventDefault()
-      const { data } = await axios.put(`http://localhost:2651/user/update/${id}`)
-      alert(data.message)
-      return <Navigate to='/dashboard/User'/>
-    }catch(err){
-      console.error(err)
-      alert(err.response.data.message)
+    const updateUser = async()=>{
+        try{
+            let updatedUser = {
+                name: document.getElementById('inputName').value,
+                surname: document.getElementById('inputSurname').value,
+                DPI: document.getElementById('inputDpi').value,
+                email: document.getElementById('inputEmail').value,
+                phone: document.getElementById('inputPhone').value,
+                
+            }
+            const { data } = await axios.put(`http://localhost:2651/user/update/${id}`, updatedUser , {
+              headers: {
+                  'Authorization': token
+              }
+          })
+           alert(`${data.message} ${data.updatedUser.name}`)
+           
+        }catch(err){
+            console.error(err)
+        }
     }
-  }
+    useEffect(()=> getUser , [])
 
-  useEffect(()=> getProduct, [])
-  if(loading){
-    return(
-      <img src={imgLoading} alt='Loading...'/>
-    )
-  }
+   
   return (
-    <h1>UpdateUserPage</h1>
+    <div className="container">
+    <div className="box">
+        <h1>Cliente</h1>
+        <form>
+            <div>
+                <i className="fa-solid fa-user"></i>
+                    <input type="text" placeholder="Descripcion" id='description'/>
+            </div>
+            <br/>
+            <div>
+                <i className="fa-solid fa-user-clock"></i>
+                <input defaultValue={user.surname} type="text" placeholder="surname" className="form-control" id="inputSurname" required/>
+            </div>
+            <br/>
+            <div>
+                <i className="fa-solid fa-id-card"></i>
+                <input defaultValue={user.dpi} type="text" placeholder="dpi" className="form-control" id="inputDpi" required/>
+            </div>
+            <br/>
+            <div>
+                <i className="fa-solid fa-envelope"></i>
+                <input defaultValue={user.email} type="text" placeholder="email" className="form-control" id="inputEmail" required/>
+            </div>
+            <br/>
+            <div>
+                <i className="fa-solid fa-phone"></i>
+                <input defaultValue={user.phone} type="text" placeholder="phone" className="form-control" id="inputPhone" required/>
+            </div>
+            <br/>
+            <button onClick={()=>  updateUser()} type="submit" className="btn btn-outline-primary">Update</button>
+        </form>
+    </div>
+</div>
   )
 }

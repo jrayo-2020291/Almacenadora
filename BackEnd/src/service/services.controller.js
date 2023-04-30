@@ -36,21 +36,18 @@ exports.find = async (req, res) => {
   }
 };
 
-exports.findId = async (req, res) => {
+exports.getForId = async(req,res)=>{
   try {
-    let data = req.body;
-    let serviceId = req.body.id;
-    let id= data.id;
-    if(id===''){
-    return res.status(200).send({message:'Empty field'})
-    }
-    let service = await Service.find({ _id: serviceId });
-    return res.send(service);
+      let serviceId= req.params.id;
+      let existService = await Service.findOne({_id:serviceId});
+      if(!existService) return res.send({message:'Service not found'});
+      return res.send(existService);
   } catch (err) {
-    console.error(err);
-    return res.status(500).send({ message: "Invalid name" });
+      console.error(err);
+      return res.status(500).send({message:'Error getting Service'})
   }
-};
+}
+
 
 exports.getServices = async(req, res)=>{
   try{
