@@ -1,6 +1,8 @@
 import React from 'react'
-import '../../AppStyle.css'
-
+import '../../../../FrontEnd/src/Homepage.css'
+import axios from "axios"
+import { Link } from "react-router-dom"
+import { useState, useEffect } from "react"
 export const AddStoragePage = () => {
     const title = 'ADD STORAGE'
 
@@ -18,7 +20,11 @@ export const AddStoragePage = () => {
                 monthlyPrice: document.getElementById('monthlyPrice').value,
                 
             }
-            const { data } = await axios.post('http://localhost:2651/storage/add', storage,
+            const { data } = await axios.post('http://localhost:2651/storage/add', storage, {
+                headers: {
+                    'Authorization': token
+                }
+            }
             )
             alert(data.message)
         }catch(err){

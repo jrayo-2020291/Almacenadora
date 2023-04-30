@@ -29,8 +29,11 @@ exports.add = async(req, res) => {
         }
         let storage = await Storage.findOne({_id: dataLease.storage})
         if(storage.availability == 'nodisponible') return res.send({message: 'This storage already in lease'});
-        let stateStorage = await Storage.findOneAndUpdate({_id: dataLease.storage}, {availability: 'nodisponible'}, {new: true});
         let newLease = new Lease (dataLease);
+        if(newLease){
+            let stateStorage = await Storage.findOneAndUpdate({_id: dataLease.storage}, {availability: 'nodisponible'}, {new: true});
+
+        }
         await newLease.save();
         return res.send({message: 'New Lease created', newLease});
     }catch(err){

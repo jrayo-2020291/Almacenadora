@@ -1,6 +1,8 @@
-import React, { useState, useEffect } from 'react'
-import { Navigate, useParams } from 'react-router-dom'
-import axios from 'axios'
+import React from 'react'
+import { useState, useEffect } from "react"
+import { Link, useParams } from "react-router-dom"
+import axios from "axios"
+
 
 export const UpdateUserPage = () => {
   const [user, setUser] = useState({})

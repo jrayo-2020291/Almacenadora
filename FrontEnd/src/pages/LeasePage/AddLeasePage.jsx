@@ -6,7 +6,6 @@ import { useState, useEffect } from "react"
 
 export const AddLeasePage = () => {
   const [users, setUsers] = useState([{}])
-  const [services, setServices] = useState([{}])
   const [storage, setStorage] = useState([{}])
 
 
@@ -41,23 +40,14 @@ export const AddLeasePage = () => {
     }
 }
 
-  const getServices = async()=>{
-    try{
-        const { data } = await axios('http://localhost:2651/service/get' )
-        setServices(data.services)
-    }catch(err){
-        console.error(err);
-    }
-}
+
     const addLease = async()=>{
         try{
             let lease = {
               user: document.getElementById('inputUser').value,
               storage: document.getElementById('inputStorage').value,
               description: document.getElementById('description').value,
-              dueDate: document.getElementById('date').value,
-              rentalDate: document.getElementById('time').value,
-
+              month: document.getElementById('date').value,
             }
             const { data } = await axios.post('http://localhost:2651/lease/add', lease,
             {
@@ -71,7 +61,6 @@ export const AddLeasePage = () => {
         }
     }
     useEffect(()=> getUsers, [])
-    useEffect(()=> getServices, [])
     useEffect(()=> getStorage, [])
 
   return (
@@ -117,12 +106,7 @@ export const AddLeasePage = () => {
                 <br/>
                 <div>
                     <i className="fa-solid fa-book icon side"></i>
-                    <input type="date" placeholder="Arrendamiento" id='date'/>
-                </div>
-                <br/>
-                <div>
-                    <i className="fa-solid fa-clock"></i>
-                    <input type="date" placeholder="Duracion" id='time'/>
+                    <input type="Number" placeholder="Arrendamiento" id='date'/>
                 </div>
                 <br/>
                 <div>

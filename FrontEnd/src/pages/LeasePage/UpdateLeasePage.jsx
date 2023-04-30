@@ -6,8 +6,22 @@ import axios from "axios"
 export const UpdateLeasePage = () => {
   const [lease, setLease] = useState({})
   const { id } = useParams();
+  const [storage, setStorage] = useState([{}])
   const token = localStorage.getItem(`token`)
-
+ 
+  const getStorage = async()=>{
+    try{
+        const { data } = await axios('http://localhost:2651/storage/get' ,
+        {
+            headers: {
+                'Authorization': token
+            }
+        })
+        setStorage(data.storages)
+    }catch(err){
+        console.error(err);
+    }
+}
   const getLease = async()=>{
       try{
           const { data } = await axios(`http://localhost:2651/lease/get/${id}`,{
@@ -22,12 +36,14 @@ export const UpdateLeasePage = () => {
   }
   
 
-  const updateLease = async()=>{
+  const updateLease = async(e)=>{
       try{
+        e.preventDefault()
           let updatedLease = {
-              description: document.getElementById('description').value,
-              rentalDate: document.getElementById('date').value,      
+              storage: document.getElementById('inputStorage').value,   
+                 
           }
+          console.log(updatedLease.storage)
           const { data } = await axios.put(`http://localhost:2651/lease/update/${id}`, updatedLease,
           {
             headers: {
@@ -41,6 +57,7 @@ export const UpdateLeasePage = () => {
       }
   }
   useEffect(()=> getLease, [])
+  useEffect(()=> getStorage, [])
 
  
   return (
@@ -48,9 +65,17 @@ export const UpdateLeasePage = () => {
         <div className="box">
             <h1>Arrendamiento</h1>
             <form>
-                <div>
-                    <i className="fa-solid fa-user-pen icon side"></i>
-                    <input type="date" defaultValue={lease.rentalDate}placeholder="Duracion" id='date'/>
+            <div>
+                    <i className="fa-solid fa-user-shield icon side">Bodega</i>
+                    <select className="form-control" id="inputStorage" required>
+                    {
+                           storage.map(({_id, name,description,location,size,availability,monthlyPrice }, i)=>{
+                            return (
+                                <option key={i} value={_id}>{name}</option>
+                            )
+                           }) 
+                        }
+                    </select>
                 </div>
                 <br/>    
                 <div>
@@ -58,8 +83,7 @@ export const UpdateLeasePage = () => {
                     <input type="text" defaultValue={lease.description}placeholder="Descripcion" id='description'/>
                 </div>
                 <br/>
-                <br/>
-                <button onClick={()=>  updateLease()} type="submit" className="btn btn-outline-primary">Update</button>
+                <button onClick={(e)=>  updateLease(e)} type="submit" className="btn btn-outline-primary">Update</button>
             </form>
         </div>
     </div> 
