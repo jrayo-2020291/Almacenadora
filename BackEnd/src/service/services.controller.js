@@ -41,7 +41,7 @@ exports.getForId = async(req,res)=>{
       let serviceId= req.params.id;
       let existService = await Service.findOne({_id:serviceId});
       if(!existService) return res.send({message:'Service not found'});
-      return res.send(existService);
+      return res.send({existService});
   } catch (err) {
       console.error(err);
       return res.status(500).send({message:'Error getting Service'})

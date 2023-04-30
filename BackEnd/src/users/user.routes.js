@@ -9,7 +9,7 @@ api.get('/test', userController.test);
 api.post('/add', [ensureAuth, isAdmin], userController.add);
 api.get('/get', [ensureAuth, isAdmin], userController.get);
 api.post('/getByDPI', [ensureAuth, isAdmin], userController.getByDPI);
-api.post('/get/:id', [ensureAuth, isAdmin], userController.getById);
+api.get('/get/:id', [ensureAuth, isAdmin], userController.getById);
 api.put('/update/:id', [ensureAuth, isAdmin], userController.updateUser);
 api.delete('/delete/:id', [ensureAuth, isAdmin], userController.deleteUser);
 module.exports = api;

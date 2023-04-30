@@ -61,7 +61,7 @@ exports.getForId = async(req,res)=>{
         let storageId= req.params.id;
         let existStorage = await Storage.findOne({_id:storageId});
         if(!existStorage) return res.send({message:'Storage not found'});
-        return res.send(existStorage);
+        return res.send({existStorage});
     } catch (err) {
         console.error(err);
         return res.status(500).send({message:'Error getted Storage'})

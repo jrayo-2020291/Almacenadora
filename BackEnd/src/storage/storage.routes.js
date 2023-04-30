@@ -5,10 +5,9 @@ const express = require('express');
 const api = express.Router();
 const { ensureAuth, isAdmin } = require('../services/authenticated');
 
-//Rutas públicas
 api.get('/' , storageController.test);
 api.get('/get',[ensureAuth,isAdmin], storageController.get)
-api.post('/getForId/:id',[ensureAuth,isAdmin],storageController.getForId)
+api.get('/getForId/:id',[ensureAuth,isAdmin],storageController.getForId)
 api.post('/getForName',[ensureAuth,isAdmin],storageController.getForName)
 api.post('/getForAvailability',[ensureAuth,isAdmin], storageController.getForAvailability)
 api.post('/add',[ensureAuth,isAdmin], storageController.add)

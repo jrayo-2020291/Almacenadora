@@ -58,7 +58,6 @@ export const UpdateLeasePage = () => {
   }
   useEffect(()=> getLease, [])
   useEffect(()=> getStorage, [])
-
  
   return (
 <div className="container">
@@ -69,7 +68,7 @@ export const UpdateLeasePage = () => {
                     <i className="fa-solid fa-user-shield icon side">Bodega</i>
                     <select className="form-control" id="inputStorage" required>
                     {
-                           storage.map(({_id, name,description,location,size,availability,monthlyPrice }, i)=>{
+                           storage.map(({_id, name }, i)=>{
                             return (
                                 <option key={i} value={_id}>{name}</option>
                             )

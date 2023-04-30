@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react"
 import { Link, useParams } from "react-router-dom"
 import axios from "axios"
+import React from 'react'
 
 export const UpdateAccountPage = () =>{
     const [account, setAccount] = useState({})
@@ -10,17 +11,18 @@ export const UpdateAccountPage = () =>{
 
     const getAccount = async()=>{
         try{
-            const { data } = await axios(`http://localhost:2651/account/getForId/${id}`, {
+            const { data } = await axios(`http://localhost:2651/account/get/${id}`, {
               headers: {
                   'Authorization': token
               }
           })
-            setAccount(data.product)
+            setAccount(data.account)
         }catch(err){
             console.error(err)
         }
     }
     
+
 
     const updateAccount = async()=>{
         try{
@@ -37,50 +39,42 @@ export const UpdateAccountPage = () =>{
                   'Authorization': token
               }
           })
-           alert(`${data.message} ${data.updatedProduct.name}`)
+           alert(`${data.message} ${data.updatedAccount.name}`)
            
         }catch(err){
             console.error(err)
         }
     }
     useEffect(()=> getAccount, [])
-
    
   return (
-    <> 
-    <meta charSet="UTF-8"/>
-    <meta httpEquiv="X-UA-Compatible" content="IE=edge"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <link rel="shortcut icon" href="./img/favicon.png" type="image/x-icon"/>
-    <link rel="stylesheet" href="./css/stylesheet.css"/>
-    <script src="https://kit.fontawesome.com/32c2859f80.js" crossOrigin="anonymous"></script>
     <div className="container">
         <div className="box">
             <h1>Empleado</h1>
             <form>
                 <div>
                     <i className="fa-solid fa-user"></i>
-                    <input defaultValue={account.name} type="text" placeholder="name" className="form-control" id="inputName" required/>
+                    <input defaultValue={account && account.name} type="text" placeholder="name" className="form-control" id="inputName" required/>
                 </div>
                 <br/>
                 <div>
                     <i className="fa-solid fa-user-clock"></i>
-                    <input defaultValue={account.surname} type="text" placeholder="surname" className="form-control" id="inputSurname" required/>
+                    <input defaultValue={account && account.surname} type="text" placeholder="surname" className="form-control" id="inputSurname" required/>
                 </div>
                 <br/>
                 <div>
                     <i className="fa-solid fa-users"></i>
-                    <input defaultValue={account.username} type="text" placeholder="username" className="form-control" id="inputUsername" required/>
+                    <input defaultValue={ account && account.username} type="text" placeholder="username" className="form-control" id="inputUsername" required/>
                 </div>
                 <br/>
                 <div>
                     <i className="fa-solid fa-lock"></i>
-                    <input defaultValue={account.email} type="text" placeholder="email" className="form-control" id="inputEmail" required/>
+                    <input defaultValue={account && account.email} type="text" placeholder="email" className="form-control" id="inputEmail" required/>
                 </div>
                 <br/>
                 <div>
                     <i className="fa-solid fa-envelope"></i>
-                    <input defaultValue={account.phone} type="text" placeholder="phone" className="form-control" id="inputPhone" required/>
+                    <input defaultValue={account && account.phone} type="text" placeholder="phone" className="form-control" id="inputPhone" required/>
                 </div>
                 <br/>
                 <button onClick={()=>  updateAccount()} type="submit" className="btn btn-outline-primary">Update</button>
@@ -88,6 +82,5 @@ export const UpdateAccountPage = () =>{
             </form>
         </div>
     </div>
-    </>
   )
 }

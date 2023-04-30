@@ -7,10 +7,16 @@ import axios from "axios"
 export const UpdateA_ServicesPage = () => {
   const [service, setService] = useState({})
   const { id } = useParams();
+  const token = localStorage.getItem(`token`)
+
   
   const getService = async()=>{
     try{
-        const { data } = await axios(`http://localhost:2651/service/find/${id}`)
+        const { data } = await axios(`http://localhost:2651/service/get/${id}` ,{
+            headers: {
+                'Authorization': token
+            }
+        })
         setService(data.service)
     }catch(err){
         console.error(err)
@@ -35,36 +41,29 @@ const updateService = async()=>{
 }
 useEffect(()=> getService, [])
   return (
-    <>
-    <meta charSet="UTF-8"/>
-    <meta httpEquiv="X-UA-Compatible" content="IE=edge"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <link rel="shortcut icon" href="./img/favicon.png" type="image/x-icon"/>
-    <link rel="stylesheet" href="./css/stylesheet.css"/>
-    <script src="https://kit.fontawesome.com/32c2859f80.js" crossOrigin="anonymous"></script>
+   
     <div className="container">
         <div className="box">
             <h1>Servicio</h1>
             <form>
                 <div>
                     <i className="fa-solid fa-user"></i>
-                    <input defaultValue={service.name} type="text" className="form-control" id="inputName" required/>
+                    <input  type="text" defaultValue={service && service.name} className="form-control" placeholder='New Name' id="inputName" required/>
                 </div>
                 <br/>
                 <div>
                     <i className="fa-solid fa-pencil"></i>
-                    <input defaultValue={service.description} type="text" className="form-control" id="inputDescription" required/>
+                    <input  type="text" defaultValue={service && service.description}className="form-control" id="inputDescription" required/>
                 </div>
                 <br/>
                 <div>
                     <i className="fa-solid fa-tag"></i>
-                    <input defaultValue={service.price} type="number" className="form-control" id="inputPrice" required/>
+                    <input  type="number"defaultValue={service && service.price} className="form-control" id="inputPrice" required/>
                 </div>
                 <br/>
                 <button onClick={()=>  updateService()} type="submit" className="btn btn-outline-primary">Update</button>
             </form>
         </div>
     </div>
-     </>
   )
 }

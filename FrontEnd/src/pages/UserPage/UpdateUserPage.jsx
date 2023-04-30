@@ -3,7 +3,6 @@ import { useState, useEffect } from "react"
 import { Link, useParams } from "react-router-dom"
 import axios from "axios"
 
-
 export const UpdateUserPage = () => {
   const [user, setUser] = useState({})
     const { id } = useParams();
@@ -46,6 +45,7 @@ export const UpdateUserPage = () => {
         }
     }
     useEffect(()=> getUser , [])
+    console.log(user)
 
    
   return (
@@ -55,7 +55,7 @@ export const UpdateUserPage = () => {
         <form>
             <div>
                 <i className="fa-solid fa-user"></i>
-                    <input type="text" placeholder="Descripcion" id='description'/>
+                <input defaultValue={user.name} type="text" placeholder="name" className="form-control" id="inputName" required/>
             </div>
             <br/>
             <div>
