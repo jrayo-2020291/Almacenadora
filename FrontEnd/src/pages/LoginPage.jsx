@@ -4,10 +4,9 @@ import { Link } from 'react-router-dom'
 import { useNavigate } from 'react-router-dom'
 import { AuthContext } from '../Index'
 import axios from 'axios'
-import { Navigate } from 'react-router-dom' 
 
 export const LoginPage = () => {
-    const navigate = useNavigate()
+  const navigate = useNavigate()
   const {setLoggedIn, loggedIn, setDataUser } = useContext(AuthContext);
   const [form, setForm] = useState({
     username: '',
@@ -25,17 +24,15 @@ export const LoginPage = () => {
     try{
       // e.preventDefault()  
       const { data } = await axios.post('http://localhost:2651/account/login', form)
-      console.log(data)
       if(data.token){
         setLoggedIn(true)
         localStorage.setItem('token', data.token)
-        console.log(data.token)
         // setDataUser({
         //   name: data.name,
         //   username: data.username,
         //   role: data.role
         // })
-        return <Navigate to='/dashboard'></Navigate>
+        navigate('/dashboard')
       }
     }catch(err){
       console.log(err)
