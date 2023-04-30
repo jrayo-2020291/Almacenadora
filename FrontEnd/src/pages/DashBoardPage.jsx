@@ -1,21 +1,21 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Outlet } from 'react-router-dom'
 import '../AppStyle.css'
 // import '../AppScript.js'
-import img1 from '../assets/favicon.png'
 import img2 from '../assets/storage.png'
 import img3 from '../assets/admin.png'
 
 
 
 export const DashBoardPage =() => {
+	
   return (
    <>
     <meta charSet="UTF-8"/>
     <meta httpEquiv="X-UA-Compatible" content="IE=edge"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <script src="https://kit.fontawesome.com/32c2859f80.js" crossOrigin="anonymous"></script>
-    <script src="../AppScript" async></script>
+	
     <title>Clientes</title>
 
     <section id="sidebar">
@@ -54,7 +54,6 @@ export const DashBoardPage =() => {
 		</header>
     </section>
     <Outlet></Outlet>
-    <script src='../AppScript.js'></script>
-    </>
+    </>	
   )
 }

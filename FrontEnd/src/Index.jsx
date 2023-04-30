@@ -16,11 +16,11 @@ import { UpdateStoragePage } from './pages/StoragePage/UpdateStoragePage'
 import { AddUserPage } from './pages/UserPage/AddUserPage'
 import { UpdateUserPage } from './pages/UserPage/UpdateUserPage'
 import { WorkerPage } from './pages/WorkerPage'
-import { A_ServicesTable } from './components/A_ServicesTable'
-import { AccountTable  } from './components/AccountTable'
-import { LeaseTable } from './components/LeaseTable'
-import { StorageTable } from './components/StorageTable'
-import { UserTable } from './components/UserTable'
+import { A_ServicesTable } from './components/Tables/A_ServicesTable'
+import { AccountTable  } from './components/Tables/AccountTable'
+import { LeaseTable } from './components/Tables/LeaseTable'
+import { StorageTable } from './components/Tables/StorageTable'
+import { UserTable } from './components/Tables/UserTable'
 
 export const AuthContext = createContext();
 
@@ -86,7 +86,7 @@ export const Index = () => {
                 element: loggedAdmin ? <AddA_ServicesPage></AddA_ServicesPage> : <LoginPage></LoginPage>
             },
             {
-                path: '/updateA_Service',
+                path: '/updateA_Service/:id',
                 element: loggedAdmin ? <UpdateA_ServicesPage></UpdateA_ServicesPage> : <LoginPage></LoginPage>
             },
             {
@@ -94,7 +94,7 @@ export const Index = () => {
                 element: loggedAdmin ? <AddAccountPage></AddAccountPage> : <LoginPage></LoginPage>
             },
             {
-                path: '/updateAccount',
+                path: '/updateAccount/:id',
                 element: loggedAdmin ? <UpdateAccountPage></UpdateAccountPage> : <LoginPage></LoginPage>
             },
             {
@@ -102,7 +102,7 @@ export const Index = () => {
                 element: loggedIn ? <AddLeasePage></AddLeasePage> : <LoginPage></LoginPage>
             },
             {
-                path: '/updateLease',
+                path: '/updateLease/:id',
                 element: loggedIn ? <UpdateLeasePage></UpdateLeasePage> : <LoginPage></LoginPage>
             },
             {
@@ -110,7 +110,7 @@ export const Index = () => {
                 element: loggedAdmin ? <AddStoragePage></AddStoragePage> : <LoginPage></LoginPage>
             },
             {
-                path: '/updateStorage',
+                path: '/updateStorage/:id',
                 element: loggedAdmin ? <UpdateStoragePage></UpdateStoragePage> : <LoginPage></LoginPage>
             },
             {
@@ -118,7 +118,7 @@ export const Index = () => {
                 element: loggedAdmin ? <AddUserPage></AddUserPage> : <LoginPage></LoginPage>
             },
             {
-                path: '/updateUser',
+                path: '/updateUser/:id',
                 element: loggedAdmin ? <UpdateUserPage></UpdateUserPage> : <LoginPage></LoginPage>
             }
           ]  
