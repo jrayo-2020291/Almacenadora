@@ -16,11 +16,11 @@ import { UpdateStoragePage } from './pages/StoragePage/UpdateStoragePage'
 import { AddUserPage } from './pages/UserPage/AddUserPage'
 import { UpdateUserPage } from './pages/UserPage/UpdateUserPage'
 import { WorkerPage } from './pages/WorkerPage'
-import { A_ServicesTable } from './components/A_ServicesTable'
-import { AccountTable  } from './components/AccountTable'
-import { LeaseTable } from './components/LeaseTable'
-import { StorageTable } from './components/StorageTable'
-import { UserTable } from './components/UserTable'
+import { A_ServicesTable } from './components/Tables/A_ServicesTable'
+import { AccountTable  } from './components/Tables/AccountTable'
+import { LeaseTable } from './components/Tables/LeaseTable'
+import { StorageTable } from './components/Tables/StorageTable'
+import { UserTable } from './components/Tables/UserTable'
 
 export const AuthContext = createContext();
 
