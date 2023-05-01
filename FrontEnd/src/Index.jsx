@@ -21,6 +21,7 @@ import { AccountTable  } from './components/Tables/AccountTable'
 import { LeaseTable } from './components/Tables/LeaseTable'
 import { StorageTable } from './components/Tables/StorageTable'
 import { UserTable } from './components/Tables/UserTable'
+import { AddAService } from './pages/LeasePage/AddAservice'
 
 export const AuthContext = createContext();
 
@@ -120,6 +121,10 @@ export const Index = () => {
             {
                 path: '/updateUser/:id',
                 element: loggedAdmin ? <UpdateUserPage></UpdateUserPage> : <LoginPage></LoginPage>
+            },
+            {
+                path: '/addAService/:id',
+                element: loggedAdmin ? <AddAService></AddAService> : <LoginPage></LoginPage>
             }
           ]  
         }
