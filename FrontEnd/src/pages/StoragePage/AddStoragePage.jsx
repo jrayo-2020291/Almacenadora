@@ -1,16 +1,17 @@
 import React from 'react'
 import '../../../../FrontEnd/src/Homepage.css'
 import axios from "axios"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import { useState, useEffect } from "react"
 export const AddStoragePage = () => {
     const title = 'ADD STORAGE'
-
+    const navigate = useNavigate()
     const token = localStorage.getItem(`token`)
 
 
-    const addStorage = async()=>{
+    const addStorage = async(e)=>{
         try{
+            e.preventDefault()
             let storage = {
                 name: document.getElementById('name').value,
                 description: document.getElementById('description').value,
@@ -27,6 +28,7 @@ export const AddStoragePage = () => {
             }
             )
             alert(data.message)
+            navigate('/dashboard/Storage')
         }catch(err){
             alert(err.response.data.message)
         }
@@ -77,7 +79,10 @@ export const AddStoragePage = () => {
                     <input type="number" placeholder="Precio" id='monthlyPrice'/>
                 </div>
                 <br/>
-                <button onClick={()=>  addStorage()} type="submit" className="btn btn-primary">Add</button>
+                <button onClick={(e)=>  addStorage(e)} type="submit" className="btn btn-primary">Add</button>
+                <Link to='/dashboard/Storage'>
+                <button type="submit" className="btn btn-primary">Cancel</button>
+                </Link>
             </form>
         </div>
     </div>

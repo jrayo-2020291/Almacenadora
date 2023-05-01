@@ -74,7 +74,6 @@ export const AccountTable = () => {
                   <th>Nombre</th>
                   <th>Apellido</th>
                   <th>Usuario</th>
-                  <th>Contraseña</th>
                   <th>Gmail</th>
                   <th>Telefono</th>
                   <th>Acciones</th>
@@ -82,7 +81,7 @@ export const AccountTable = () => {
               </thead>
               <tbody>
                 {
-                  account.map(({ _id, name, surname, username, email, phone, role }, index) => {
+                  account.map(({ _id, name, surname, username, email, phone}, index) => {
                     return (
                       <tr key={index}>
                         <Account
@@ -91,7 +90,6 @@ export const AccountTable = () => {
                           username={username}
                           email={email}
                           phone={phone}
-                          role={role}
                         ></Account>
                         <td>
                           <Link to={`/../updateAccount/${_id}`}>

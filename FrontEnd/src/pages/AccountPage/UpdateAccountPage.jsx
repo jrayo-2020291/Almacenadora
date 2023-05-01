@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react"
-import { Link, useParams } from "react-router-dom"
+import { Link, useParams, useNavigate } from "react-router-dom"
 import axios from "axios"
 import React from 'react'
 
@@ -7,6 +7,7 @@ export const UpdateAccountPage = () =>{
     const [account, setAccount] = useState({})
     const { id } = useParams();
     const token = localStorage.getItem(`token`)
+    const navigate = useNavigate()
 
 
     const getAccount = async()=>{
@@ -16,7 +17,7 @@ export const UpdateAccountPage = () =>{
                   'Authorization': token
               }
           })
-            setAccount(data.account)
+            setAccount(data.existAccount)
         }catch(err){
             console.error(err)
         }
@@ -24,8 +25,9 @@ export const UpdateAccountPage = () =>{
     
 
 
-    const updateAccount = async()=>{
+    const updateAccount = async(e)=>{
         try{
+            e.preventDefault()
             let updatedAccount = {
                 name: document.getElementById('inputName').value,
                 surname: document.getElementById('inputSurname').value,
@@ -39,8 +41,8 @@ export const UpdateAccountPage = () =>{
                   'Authorization': token
               }
           })
-           alert(`${data.message} ${data.updatedAccount.name}`)
-           
+           alert(`${data.message} `)
+           navigate('/dashboard/Account')
         }catch(err){
             console.error(err)
         }
@@ -54,30 +56,33 @@ export const UpdateAccountPage = () =>{
             <form>
                 <div>
                     <i className="fa-solid fa-user"></i>
-                    <input defaultValue={account && account.name} type="text" placeholder="name" className="form-control" id="inputName" required/>
+                    <input defaultValue={account.name} type="text" placeholder="name" className="form-control" id="inputName" required/>
                 </div>
                 <br/>
                 <div>
                     <i className="fa-solid fa-user-clock"></i>
-                    <input defaultValue={account && account.surname} type="text" placeholder="surname" className="form-control" id="inputSurname" required/>
+                    <input defaultValue={account.surname} type="text" placeholder="surname" className="form-control" id="inputSurname" required/>
                 </div>
                 <br/>
                 <div>
                     <i className="fa-solid fa-users"></i>
-                    <input defaultValue={ account && account.username} type="text" placeholder="username" className="form-control" id="inputUsername" required/>
+                    <input defaultValue={account.username} type="text" placeholder="username" className="form-control" id="inputUsername" required/>
                 </div>
                 <br/>
                 <div>
                     <i className="fa-solid fa-lock"></i>
-                    <input defaultValue={account && account.email} type="text" placeholder="email" className="form-control" id="inputEmail" required/>
+                    <input defaultValue={account.email} type="text" placeholder="email" className="form-control" id="inputEmail" required/>
                 </div>
                 <br/>
                 <div>
                     <i className="fa-solid fa-envelope"></i>
-                    <input defaultValue={account && account.phone} type="text" placeholder="phone" className="form-control" id="inputPhone" required/>
+                    <input defaultValue={account.phone} type="text" placeholder="phone" className="form-control" id="inputPhone" required/>
                 </div>
                 <br/>
-                <button onClick={()=>  updateAccount()} type="submit" className="btn btn-outline-primary">Update</button>
+                <button onClick={(e)=>  updateAccount(e)} type="submit" className="btn btn-outline-primary">Update</button>
+                <Link to='/dashboard/Account'>
+                <button type="submit" className="btn btn-outline-primary">Cancel</button>
+                </Link>
 
             </form>
         </div>

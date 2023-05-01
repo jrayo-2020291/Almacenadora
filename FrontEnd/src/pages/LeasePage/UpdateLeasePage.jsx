@@ -1,6 +1,6 @@
 import React from 'react'
 import { useState, useEffect } from "react"
-import { Link, useParams } from "react-router-dom"
+import { Link, useParams, useNavigate } from "react-router-dom"
 import axios from "axios"
 
 export const UpdateLeasePage = () => {
@@ -8,6 +8,7 @@ export const UpdateLeasePage = () => {
   const { id } = useParams();
   const [storage, setStorage] = useState([{}])
   const token = localStorage.getItem(`token`)
+  const navigate = useNavigate()
  
   const getStorage = async()=>{
     try{
@@ -50,8 +51,8 @@ export const UpdateLeasePage = () => {
                 'Authorization': token
             }
         })
-         alert(`${data.message} ${data.updatedLease.name}`)
-         
+         alert(`${data.message}`)
+        navigate('/dashboard/Lease')
       }catch(err){
           console.error(err)
       }
@@ -76,13 +77,12 @@ export const UpdateLeasePage = () => {
                         }
                     </select>
                 </div>
-                <br/>    
-                <div>
-                    <i className="fa-solid fa-book icon side"></i>
-                    <input type="text" defaultValue={lease.description}placeholder="Descripcion" id='description'/>
-                </div>
                 <br/>
                 <button onClick={(e)=>  updateLease(e)} type="submit" className="btn btn-outline-primary">Update</button>
+                <Link to='/dashboard/Lease'>
+                <button type="submit" className="btn btn-outline-primary">Cancel</button>
+                </Link>
+                
             </form>
         </div>
     </div> 

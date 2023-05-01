@@ -1,15 +1,16 @@
 import React from 'react'
 import '../../AppStyle.css' 
 import axios from "axios"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import { useState, useEffect } from "react"
 
 export const AddA_ServicesPage = () => {
 
     const title = 'ADD SERVICE'
-
-    const addService = async()=>{
+    const navigate = useNavigate()
+    const addService = async(e)=>{
         try{
+            e.preventDefault()
             let service = {
                 name: document.getElementById('name').value,
                 price: document.getElementById('price').value,
@@ -17,6 +18,7 @@ export const AddA_ServicesPage = () => {
             }
             const { data } = await axios.post('http://localhost:2651/service/add', service)
             alert(data.message)
+            navigate('/dashboard/A_Services')
         }catch(err){
             alert(err.response.data.message)
         }
@@ -47,7 +49,10 @@ export const AddA_ServicesPage = () => {
                     <input type="number" placeholder="Precio" id='price'/>
                 </div>
                 <br/>
-                <button onClick={()=>  addService()} type="submit" className="btn btn-primary">Add</button>
+                <button onClick={(e)=>  addService(e)} type="submit" className="btn btn-primary">Add</button>
+                <Link to='/dashboard/A_Services'>
+                <button type="submit" className="btn btn-primary">Cancel</button>
+                </Link>
             </form>
         </div>
     </div>

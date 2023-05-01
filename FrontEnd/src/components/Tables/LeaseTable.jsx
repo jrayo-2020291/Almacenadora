@@ -18,7 +18,7 @@ export const LeaseTable = () => {
       })
       data.lease.forEach(element=>{
         let date = new Date(element.dueDate)
-        element.dueDate = date.toLocaleDateString() 
+        element.dueDate = date.toLocaleDateString()
       })
       setLease(data.lease)     
       setLoading(false)

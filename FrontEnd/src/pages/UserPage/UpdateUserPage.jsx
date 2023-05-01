@@ -1,12 +1,13 @@
 import React from 'react'
 import { useState, useEffect } from "react"
-import { Link, useParams } from "react-router-dom"
+import { Link, useParams, useNavigate } from "react-router-dom"
 import axios from "axios"
 
 export const UpdateUserPage = () => {
   const [user, setUser] = useState({})
     const { id } = useParams();
     const token = localStorage.getItem(`token`)
+    const navigate = useNavigate()
 
 
     const getUser = async()=>{
@@ -23,8 +24,9 @@ export const UpdateUserPage = () => {
     }
     
 
-    const updateUser = async()=>{
+    const updateUser = async(e)=>{
         try{
+            e.preventDefault()
             let updatedUser = {
                 name: document.getElementById('inputName').value,
                 surname: document.getElementById('inputSurname').value,
@@ -39,7 +41,7 @@ export const UpdateUserPage = () => {
               }
           })
            alert(`${data.message} ${data.updatedUser.name}`)
-           
+          navigate('/dashboard/User')
         }catch(err){
             console.error(err)
         }
@@ -65,7 +67,7 @@ export const UpdateUserPage = () => {
             <br/>
             <div>
                 <i className="fa-solid fa-id-card"></i>
-                <input defaultValue={user.dpi} type="text" placeholder="dpi" className="form-control" id="inputDpi" required/>
+                <input defaultValue={user.DPI} type="text" placeholder="dpi" className="form-control" id="inputDpi" required/>
             </div>
             <br/>
             <div>
@@ -78,7 +80,11 @@ export const UpdateUserPage = () => {
                 <input defaultValue={user.phone} type="text" placeholder="phone" className="form-control" id="inputPhone" required/>
             </div>
             <br/>
-            <button onClick={()=>  updateUser()} type="submit" className="btn btn-outline-primary">Update</button>
+            <button onClick={(e)=>  updateUser(e)} type="submit" className="btn btn-outline-primary">Update</button>
+            <Link to='/dashboard/User'>
+            <button  type="submit" className="btn btn-outline-primary">Cancel</button>
+            </Link>
+            
         </form>
     </div>
 </div>

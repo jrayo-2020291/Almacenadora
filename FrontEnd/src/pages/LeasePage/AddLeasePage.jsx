@@ -1,13 +1,13 @@
 import React from 'react'
 import '../../../../FrontEnd/src/Homepage.css'
 import axios from "axios"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import { useState, useEffect } from "react"
 
 export const AddLeasePage = () => {
   const [users, setUsers] = useState([{}])
   const [storage, setStorage] = useState([{}])
-
+  const navigate = useNavigate()
 
     const title = 'ADD USER'
 
@@ -41,8 +41,9 @@ export const AddLeasePage = () => {
 }
 
 
-    const addLease = async()=>{
+    const addLease = async(e)=>{
         try{
+            e.preventDefault()
             let lease = {
               user: document.getElementById('inputUser').value,
               storage: document.getElementById('inputStorage').value,
@@ -56,6 +57,7 @@ export const AddLeasePage = () => {
                 }
             })
             alert(data.message)
+            navigate('/dashboard/Lease')
         }catch(err){
             alert(err.response.data.message)
         }
@@ -114,7 +116,10 @@ export const AddLeasePage = () => {
                     <input type="text" placeholder="Descripcion" id='description'/>
                 </div>
                 <br/>
-                <button onClick={()=>  addLease()} type="submit" className="btn btn-primary">Add</button>
+                <button onClick={(e)=>  addLease(e)} type="submit" className="btn btn-primary">Add</button>
+                <Link to='/dashboard/Lease'>
+                <button type="submit" className="btn btn-primary">Cancel</button>
+                </Link>
             </form>
         </div>
     </div>
