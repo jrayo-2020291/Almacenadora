@@ -16,7 +16,11 @@ export const LeaseTable = () => {
           'Authorization': token
         }
       })
-      setLease(data.lease)
+      data.lease.forEach(element=>{
+        let date = new Date(element.dueDate)
+        element.dueDate = date.toLocaleDateString() 
+      })
+      setLease(data.lease)     
       setLoading(false)
     }catch(err){
       console.error(err)
@@ -70,31 +74,32 @@ export const LeaseTable = () => {
 							<tr>
 								<th>Usuarios</th>
 								<th>Bodegas</th>
-								<th>Servicios</th>
-								<th>Arrendamiento</th>
-								<th>Duración</th>
+								<th>Descripción</th>
+								<th>Fecha de expiración</th>
+                <th>Total</th>
 								<th>Acciones</th>
 							</tr>
 						</thead>
 							<tbody>
               {
-                lease.map(({ _id, user, storage, services, description}, index) => {
+                lease.map(({ _id, user, storage, description, dueDate, total}, index) => {
                   return (
                     <tr key={index}>
                       <Lease
-                        user={user}
-                        storage={storage}
-                        services={services}
+                        user={user?.surname}
+                        storage={storage?.name}
                         description={description}
+                        dueDate={dueDate}
+                        total={total}
                       ></Lease>
-                      <td>
-                        ...
-                      </td>
                       <td>
                         <Link to={`/../updateLease/${_id}`}>
                           <i className="fa-solid fa-pen-to-square button"></i>
                         </Link>
                         <i onClick={() => deleteLease(_id)} className="fa-sharp fa-solid fa-trash button"></i>
+                        <Link to={`/../addAService/${_id}`}>
+                          <i className="fa-solid fa-pen-to-square button"></i>
+                        </Link>
                       </td>
                     </tr>
                   )

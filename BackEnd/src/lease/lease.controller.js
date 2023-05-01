@@ -58,7 +58,7 @@ exports.addService = async(req, res)=>{
             let newTotal = lease.total + serviceExist.price;
             if(serviceAlready) return res.send({message: 'Service already contracted'});
             let updatedLease = await Lease.findOneAndUpdate({_id: leaseId}, {$push:{'services': params}, total: newTotal}, {new:true});
-            return res.send({message: 'Contrated Service: ' + updatedLease});
+            return res.send({message: 'Service Contrated'});
         }return res.status(404).send({message: 'Service not found'});
     }catch(err){
         console.error(err);
