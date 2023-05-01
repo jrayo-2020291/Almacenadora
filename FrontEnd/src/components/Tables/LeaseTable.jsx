@@ -96,9 +96,9 @@ export const LeaseTable = () => {
                         <Link to={`/../updateLease/${_id}`}>
                           <i className="fa-solid fa-pen-to-square button"></i>
                         </Link>
-                        <i onClick={() => deleteLease(_id)} className="fa-sharp fa-solid fa-trash button"></i>
+                          <i onClick={() => deleteLease(_id)} className="fa sharp fa-solid fa-trash button"></i>
                         <Link to={`/../addAService/${_id}`}>
-                          <i className="fa-solid fa-pen-to-square button"></i>
+                        <i className='fa-solid fa-clipboard button'></i>
                         </Link>
                       </td>
                     </tr>

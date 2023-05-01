@@ -75,7 +75,7 @@ export const AddAService = () => {
                     <table>
               <thead>
                 <tr>
-                  <th>Nombre</th>
+                  <th>Servicios contratados</th>
                   <th>Descripción</th>
                   <th>Precio</th>
                 </tr>

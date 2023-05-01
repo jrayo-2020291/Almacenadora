@@ -95,7 +95,7 @@ export const AccountTable = () => {
                           <Link to={`/../updateAccount/${_id}`}>
                             <i className="fa-solid fa-pen-to-square button"></i>
                           </Link>
-                            <i onClick={()=>deleteAccount(_id)}className="fa-sharp fa-solid fa-trash button"></i>
+                            <i onClick={()=>deleteAccount(_id)}className="fa sharp fa-solid fa-trash button"></i>
                         </td>
                       </tr>
                     )

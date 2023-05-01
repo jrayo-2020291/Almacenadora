@@ -41,7 +41,7 @@ export const AddAccountPage = () => {
     <script src="https://kit.fontawesome.com/32c2859f80.js" crossOrigin="anonymous"></script>
     <div className="container">
         <div className="box">
-            <h1>Cuenta</h1>
+            <h1>Empleados</h1>
             <form>
                 <div>
                     <i className="fa-solid fa-user"></i>

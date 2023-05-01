@@ -1,5 +1,4 @@
 import React from 'react'
-import '../../../../FrontEnd/src/Homepage.css'
 import axios from "axios"
 import { Link, useNavigate } from "react-router-dom"
 import { useState, useEffect } from "react"
@@ -67,12 +66,6 @@ export const AddLeasePage = () => {
 
   return (
     <>
-   <meta charSet="UTF-8"/>
-    <meta httpEquiv="X-UA-Compatible" content="IE=edge"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <link rel="shortcut icon" href="./img/favicon.png" type="image/x-icon"/>
-    <link rel="stylesheet" href="./css/stylesheet.css"/>
-    <script src="https://kit.fontawesome.com/32c2859f80.js" crossOrigin="anonymous"></script>
     <div className="container">
         <div className="box">
             <h1>Arrendamiento</h1>

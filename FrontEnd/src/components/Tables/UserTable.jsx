@@ -96,7 +96,7 @@ export const UserTable = () => {
 														<Link to={`/../updateUser/${_id}`}>
 															<i className="fa-solid fa-pen-to-square button"></i>
 														</Link>
-														<i onClick={() => deleteUser(_id)} className="fa-sharp fa-solid fa-trash button"></i>
+														<i onClick={() => deleteUser(_id)} className="fa sharp fa-solid fa-trash button"></i>
 													</td>
 												</tr>
 											)
