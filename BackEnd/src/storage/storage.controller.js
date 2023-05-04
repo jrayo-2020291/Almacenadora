@@ -48,7 +48,7 @@ exports.getForName = async(req,res)=>{
                 $options:'i'
             }
         })
-        return res.send(storages)
+        return res.send({storages})
     } catch (err) {
         console.error(err);
         return res.status(500).send({message:'Error search Storage'})
@@ -74,7 +74,7 @@ exports.getForAvailability = async(req,res)=>{
         let data = req.body;
         let existStorage = await Storage.find({availability:data.availability});
         if(!existStorage) return res.send({message:'Storage not found'});
-        return res.send(existStorage)
+        return res.send({existStorage})
     } catch (err) {
         console.log(err);
         return res.status(500).send({message:'Error getted Storage'})
