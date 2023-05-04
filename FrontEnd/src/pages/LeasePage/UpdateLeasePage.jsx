@@ -9,6 +9,16 @@ export const UpdateLeasePage = () => {
   const [storage, setStorage] = useState([{}])
   const token = localStorage.getItem(`token`)
   const navigate = useNavigate()
+  const [addressingUrl, setAddressingUrl] = useState('') 
+  const role = localStorage.getItem('role')
+
+  const addressing = ()=>{
+    if (role === 'ADMIN'){
+        setAddressingUrl('/dashboard/Lease')
+    } else {
+        setAddressingUrl('/worker')
+    }
+} 
  
   const getStorage = async()=>{
     try{
@@ -52,13 +62,18 @@ export const UpdateLeasePage = () => {
             }
         })
          alert(`${data.message}`)
-        navigate('/dashboard/Lease')
+         if(role === 'ADMIN'){
+            navigate('/dashboard/Lease')
+        }else{
+            navigate('/worker')
+        }
       }catch(err){
           console.error(err)
       }
   }
   useEffect(()=> getLease, [])
   useEffect(()=> getStorage, [])
+  useEffect(() =>addressing, [])
  
   return (
 <div className="container">
@@ -79,7 +94,7 @@ export const UpdateLeasePage = () => {
                 </div>
                 <br/>
                 <button onClick={(e)=>  updateLease(e)} type="submit" className="btn btn-outline-primary">Update</button>
-                <Link to='/dashboard/Lease'>
+                <Link to={addressingUrl}>
                 <button type="submit" className="btn btn-outline-primary">Cancel</button>
                 </Link>
                 

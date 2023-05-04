@@ -12,6 +12,16 @@ export const AddAService = () => {
     const navigate = useNavigate()
     const { id } = useParams()
     const [loading, setLoading] = useState(true)
+    const [addressingUrl, setAddressingUrl] = useState('') 
+    const role = localStorage.getItem('role')
+
+    const addressing = ()=>{
+        if (role === 'ADMIN'){
+            setAddressingUrl('/dashboard/Lease')
+        } else {
+            setAddressingUrl('/worker')
+        }
+    } 
 
     const getServices = async () => {
         try {
@@ -53,7 +63,11 @@ export const AddAService = () => {
                     }
                 })
             alert(`${data.message}`)
-            navigate('/dashboard/Lease')
+            if(role === 'ADMIN'){
+                navigate('/dashboard/Lease')
+            }else{
+                navigate('/worker')
+            }
         } catch (err) {
             console.error(err)
         }
@@ -61,6 +75,7 @@ export const AddAService = () => {
 
     useEffect(() => getServices, [])
     useEffect(() => getLease, [])
+    useEffect(() =>addressing, [])
     if (loading) {
         return (
             <img src={imgLoading} alt="Loading..." />
@@ -111,7 +126,7 @@ export const AddAService = () => {
                         </div>
                         <br />
                         <button onClick={(e) => updateLease(e)} type="submit" className="btn btn-primary">Add</button>
-                        <Link to='/dashboard/Lease'>
+                        <Link to={addressingUrl}>
                             <button type="submit" className="btn btn-primary">Cancel</button>
                         </Link>
 

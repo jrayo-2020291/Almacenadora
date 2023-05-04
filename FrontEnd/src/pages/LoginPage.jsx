@@ -21,18 +21,19 @@ export const LoginPage = () => {
   }
 
   const login = async(e)=>{
+    e.preventDefault()
     try{
-      // e.preventDefault()  
       const { data } = await axios.post('http://localhost:2651/account/login', form)
       if(data.token){
         setLoggedIn(true)
         localStorage.setItem('token', data.token)
-        // setDataUser({
-        //   name: data.name,
-        //   username: data.username,
-        //   role: data.role
-        // })
-        navigate('/dashboard')
+        localStorage.setItem('role', data.user.role)
+        if (data.user.role === "ADMIN"){
+          navigate('/dashboard')
+        }else {
+          navigate('/worker')
+        }    
+        window.location.reload()
       }
     }catch(err){
       console.log(err)
@@ -40,7 +41,6 @@ export const LoginPage = () => {
       throw new Error('Error login failed')
     }
   }
-  console.log(form)
   return (
     <>
     <meta charSet="UTF-8"/>
@@ -63,9 +63,7 @@ export const LoginPage = () => {
                     <input onChange={handleChange} name='password' type="password" placeholder="Contraseña"/>
                 </div>
                 <br/>
-                <Link to='/dashboard'>
                 <button onClick={(e)=>login(e)} className="login">Entrar</button>
-                </Link>
             </form>
             <div className="footer"><span>Registrate</span><span>¿Olvidaste tu contraseña?</span></div>
         </div>

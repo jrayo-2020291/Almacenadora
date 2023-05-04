@@ -2,13 +2,19 @@ import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import imgLoading from '../../assets/Loading.gif'
 import { A_Service } from '../Models/A_Services'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 
 export const A_ServicesTable = () => {
+  const navigate = useNavigate()
   const [services, setServices] = useState({})
   const [loading, setLoading] = useState(true)
   const token = localStorage.getItem('token')
+
+  const LogOut = ()=>{
+		localStorage.clear()
+		navigate('/')
+	}
 
   const getServices = async () => {
     try {
@@ -37,7 +43,7 @@ export const A_ServicesTable = () => {
       <main>
         <h1 className="title">Servicios</h1>
         <ul className="breadcrumbs">
-          <li><a >Home</a></li>
+          <li onClick={()=>LogOut()}><a >Log Out</a></li>
           <li className="divider">/</li>
           <li><a className="active">Almacenadora</a></li>
         </ul>

@@ -6,7 +6,7 @@ const api = express.Router();
 const { ensureAuth, isAdmin } = require('../services/authenticated');
 
 api.get('/' , storageController.test);
-api.get('/get',[ensureAuth,isAdmin], storageController.get)
+api.get('/get',ensureAuth, storageController.get)
 api.get('/getForId/:id',[ensureAuth,isAdmin],storageController.getForId)
 api.post('/getForName',[ensureAuth,isAdmin],storageController.getForName)
 api.post('/getForAvailability',[ensureAuth,isAdmin], storageController.getForAvailability)

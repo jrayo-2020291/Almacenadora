@@ -4,13 +4,12 @@ import '../AppStyle.css'
 import '../navbar.css'
 // import '../AppScript.js'
 import img1 from '../assets/storage.png'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 
 
 
 export const DashBoardPage =() => {
-	
   return (
    <>
     <nav>

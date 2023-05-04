@@ -2,12 +2,18 @@ import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import imgLoading from '../../assets/Loading.gif'
 import { Storage } from '../Models/Storages'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 export const StorageTable = () => {
+  const navigate = useNavigate()
   const [storage, setStorage] = useState({})
   const [loading, setLoading] = useState(true)
   const token = localStorage.getItem('token')
+
+  const LogOut = ()=>{
+		localStorage.clear()
+		navigate('/')
+	}
 
   const getStorages = async () => {
     try {
@@ -51,7 +57,7 @@ export const StorageTable = () => {
     <main>
       <h1 className="title">Bodegas</h1>
       <ul className="breadcrumbs">
-        <li><a >Home</a></li>
+        <li onClick={()=>LogOut()}><a >Log Out</a></li>
         <li className="divider">/</li>
         <li><a className="active">Almacenadora</a></li>
       </ul>

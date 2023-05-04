@@ -2,12 +2,18 @@ import React, { useState, useEffect} from 'react'
 import axios from 'axios'
 import imgLoading from '../../assets/Loading.gif'
 import { Lease } from '../Models/Leases'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 export const LeaseTable = () => {
+  const navigate = useNavigate()
   const [lease, setLease] = useState({})
   const [loading, setLoading] = useState(true)
   const token = localStorage.getItem('token')
+
+  const LogOut = ()=>{
+		localStorage.clear()
+		navigate('/')
+	}
 
   const getLeases = async() =>{
     try{
@@ -54,7 +60,7 @@ export const LeaseTable = () => {
     <main>
 			<h1 className="title">Arrendamiento</h1>
 				<ul className="breadcrumbs">
-					<li><a >Home</a></li>
+					<li onClick={()=>LogOut()}><a >Log Out</a></li>
 					<li className="divider">/</li>
 					<li><a  className="active">Almacenadora</a></li>
 				</ul>

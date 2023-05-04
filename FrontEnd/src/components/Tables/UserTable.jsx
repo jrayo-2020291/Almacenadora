@@ -3,12 +3,18 @@ import axios from 'axios'
 import imgLoading from '../../assets/Loading.gif'
 import '../../AppStyle.css'
 import { User } from '../Models/Users'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 export const UserTable = () => {
 	const [users, setUsers] = useState({})
 	const [loading, setLoading] = useState(true)
 	const token = localStorage.getItem('token')
+	const navigate = useNavigate()
+
+	const LogOut = ()=>{
+		localStorage.clear()
+		navigate('/')
+	}
 
 	const getUser = async () => {
 		try {
@@ -53,7 +59,7 @@ export const UserTable = () => {
 				<main>
 					<h1 className="title">Clientes</h1>
 					<ul className="breadcrumbs">
-						<li><a >Home</a></li>
+						<li onClick={()=>LogOut()}><a>LogOut</a></li>
 						<li className="divider">/</li>
 						<li><a className="active">Almacenadora</a></li>
 					</ul>

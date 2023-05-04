@@ -124,7 +124,7 @@ export const Index = () => {
             },
             {
                 path: '/addAService/:id',
-                element: loggedAdmin ? <AddAService></AddAService> : <LoginPage></LoginPage>
+                element: loggedIn ? <AddAService></AddAService> : <LoginPage></LoginPage>
             }
           ]  
         }
