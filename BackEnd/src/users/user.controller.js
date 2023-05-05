@@ -1,6 +1,7 @@
 'use strict'
 
 const User  = require('./user.model');
+const Lease = require('../lease/lease.model')
 
 exports.test = (req, res) =>{
     res.send({message: 'Test function for User is running'});
@@ -101,10 +102,8 @@ exports.updateUser = async(req, res) => {
 exports.deleteUser = async(req, res) =>{
     try{
         let userId = req.params.id;
-        /*Validacion para no eliminar un usario registrado en una arrendamiento- SE AGREGARÁ DESPUES
-            let userExist = await Arrendamiento.findOne({user: userId})
+            let userExist = await Lease.findOne({user: userId})
             if(userExist) return res.send({message:'This user cannot be deleted because he is registered in a lease'})
-        */
        let userDeleted = await User.findOneAndDelete({_id: userId});
        if(!userDeleted) return res.status(404).send({message: 'User not found and not deleted'});
        return res.send({message: 'User deleted', userDeleted});
