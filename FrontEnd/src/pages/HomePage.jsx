@@ -8,12 +8,6 @@ import { Link } from 'react-router-dom'
 export const HomePage = () => {
   return (
     <>
-    <meta charSet="UTF-8"/>
-    <meta httpEquiv="X-UA-Compatible" content="IE=edge"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <link rel="shortcut icon" href="../assets/favicon.png" type="image/x-icon"/>
-    <script src="https://kit.fontawesome.com/32c2859f80.js" crossOrigin="anonymous"></script>
-    <main>
         <div className="big-wrapper light">
           <header>
             <div className="container">
@@ -60,8 +54,6 @@ export const HomePage = () => {
             </div>
         </div>
       </div>
-    </main>
-    <script></script>
 </>
   )
 }
